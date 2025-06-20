@@ -303,7 +303,7 @@ func (h *Handle) filterModify(filter Filter, proto, flags int) error {
 		if native != networkOrder {
 			// Copy TcU32Sel.
 			cSel := *sel
-			keys := make([]nl.TcU32Key, cap(sel.Keys))
+			keys := make([]nl.TcU32Key, 0, cap(sel.Keys))
 			copy(keys, sel.Keys)
 			cSel.Keys = keys
 			sel = &cSel
