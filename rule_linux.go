@@ -239,6 +239,7 @@ func (h *Handle) RuleListFiltered(family int, filter *Rule, filterMask uint64) (
 		rule.Invert = msg.Flags&FibRuleInvert > 0
 		rule.Family = int(msg.Family)
 		rule.Tos = uint(msg.Tos)
+		rule.Type = msg.Type
 
 		for j := range attrs {
 			switch attrs[j].Attr.Type {
@@ -291,6 +292,8 @@ func (h *Handle) RuleListFiltered(family int, filter *Rule, filterMask uint64) (
 				rule.UIDRange = NewRuleUIDRange(native.Uint32(attrs[j].Value[0:4]), native.Uint32(attrs[j].Value[4:8]))
 			case nl.FRA_PROTOCOL:
 				rule.Protocol = uint8(attrs[j].Value[0])
+			case nl.FRA_L3MDEV:
+				rule.L3mdev = uint8(attrs[j].Value[0])
 			}
 		}
 
