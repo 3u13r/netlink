@@ -896,6 +896,9 @@ func (h *Handle) routeHandle(route *Route, req *nl.NetlinkRequest, msg *nl.RtMsg
 	if err := h.prepareRouteReq(route, req, msg); err != nil {
 		return nil, err
 	}
+	for _, msg := range req.Data {
+		fmt.Printf("XXXXXXXXXXXX NETLINK %x\n", msg.Serialize())
+	}
 	return req.Execute(unix.NETLINK_ROUTE, 0)
 }
 
@@ -1176,6 +1179,7 @@ func (h *Handle) prepareRouteReq(route *Route, req *nl.NetlinkRequest, msg *nl.R
 	}
 	req.AddData(msg)
 	for _, attr := range rtAttrs {
+		fmt.Printf("XXXX NETLINK %x\n", attr.Serialize())
 		req.AddData(attr)
 	}
 

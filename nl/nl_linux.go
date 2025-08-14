@@ -70,9 +70,9 @@ func GetIPFamily(ip net.IP) int {
 	if len(ip) <= net.IPv4len {
 		return FAMILY_V4
 	}
-	if ip.To4() != nil {
-		return FAMILY_V4
-	}
+	// if ip.To4() != nil {
+	// 	return FAMILY_V4
+	// }
 	return FAMILY_V6
 }
 
